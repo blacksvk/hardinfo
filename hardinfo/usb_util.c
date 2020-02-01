@@ -317,11 +317,18 @@ static gboolean usb_get_interface_sysfs(int conf, int number,
     return TRUE;
 }
 
-static void find_usb_ids_file() {
-    if (usb_ids_file) return;
+const gchar* find_usb_ids_file() {
+    if (usb_ids_file)
+        return usb_ids_file;
+
     char *file_search_order[] = {
+        g_strdup("/usr/share/usb.ids"),
+        g_strdup("/usr/share/hwdata/usb.ids"),
+        g_strdup("/usr/share/misc/usb.ids"),
         g_build_filename(g_get_user_config_dir(), "hardinfo", "usb.ids", NULL),
         g_build_filename(params.path_data, "usb.ids", NULL),
+        g_build_filename(g_get_user_config_dir(), "hardinfo", "usb.ids.min", NULL),
+        g_build_filename(params.path_data, "usb.ids.min", NULL),
         NULL
     };
     int n;
@@ -331,6 +338,7 @@ static void find_usb_ids_file() {
         else
             g_free(file_search_order[n]);
     }
+    return usb_ids_file;
 }
 
 void usb_lookup_ids_vendor_product_str(gint vendor_id, gint product_id,

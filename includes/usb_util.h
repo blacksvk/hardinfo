@@ -75,4 +75,6 @@ void usb_lookup_ids_vendor_product_str(gint vendor_id, gint product_id,
 usbd *usb_get_device(int bus, int dev, const gchar* sysfspath);
 void usbd_free(usbd *);
 
+const gchar *find_usb_ids_file();
+
 #endif

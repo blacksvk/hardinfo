@@ -39,6 +39,7 @@
 #include "devices.h"
 #include "dt_util.h"
 #include "udisks2_util.h"
+#include "usb_util.h"
 
 gchar *callback_processors();
 gchar *callback_gpu();
@@ -897,7 +898,16 @@ const gchar *hi_note_func(gint entry)
                 return g_strdup(_("A full <i><b>pci.ids</b></i> is not available on the system."));
             }
     }
-    if (entry == ENTRY_RESOURCES) {
+    else if (entry == ENTRY_USB) {
+        const gchar *ids = find_usb_ids_file();
+        if (!ids) {
+            return g_strdup(_("A copy of <i><b>usb.ids</b></i> is not available on the system."));
+        }
+        if (ids && strstr(ids, ".min")) {
+            return g_strdup(_("A full <i><b>usb.ids</b></i> is not available on the system."));
+        }
+    }
+    else if (entry == ENTRY_RESOURCES) {
         if (root_required_for_resources()) {
             return g_strdup(_("Resource information requires superuser privileges"));
         }

@@ -122,7 +122,7 @@ set(HARDINFO_RESOURCES
 	"data/benchmark.data"
 	"deps/sysobj_early/data/vendor.ids"
 	"deps/sysobj_early/data/sdcard.ids"
-	"deps/sysobj_early/data/usb.ids"
+	"deps/sysobj_early/data/usb.ids.min"
 	"deps/sysobj_early/data/arm.ids"
 	"deps/sysobj_early/data/edid.ids"
 	"deps/sysobj_early/data/ieee_oui.ids"
